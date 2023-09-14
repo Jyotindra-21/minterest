@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maurya Interest</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="main">
+        <div id="wraper">
+            <table align="center">
+                <tr>
+                    <td><input type="number" name="investment" placeholder="Enter Money" id="investment"> </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="number" name="times" id="times" placeholder="Enter times">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="date" name="date" id="date">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <button id="calculate" class="btn">calculate</button>
+                    </td>
+                </tr>
+            </table>
+
+            
+        </div>
+        <div id="outerwraper">
+            <!-- Result Table -->
+            <table class="table table-striped" id="mydatatable">
+                <thead>
+                    <tr>
+                        <th>#Day</th>
+                        <th>Date</th>
+                        <th>Day Interest</th>
+                        <th>Total Interest</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="myresult">
+                    <tr>
+                        <td id="nodata" colspan="5">No Data Available</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+
+        </div>
+
+    </div>
+
+    <script>
+        var button = document.querySelector("#calculate")
+        const isToday = (dateToCheck) => {
+            // Get today's date
+            const today = new Date();
+
+            // Compare the components of the dateToCheck with today's date
+            const isSameDate =
+                dateToCheck.getDate() === today.getDate() &&
+                dateToCheck.getMonth() === today.getMonth() &&
+                dateToCheck.getFullYear() === today.getFullYear();
+
+            // Return true if the dateToCheck is today, otherwise return false
+            return isSameDate;
+        };
+        button.addEventListener('click', function () {
+            var investment = Number(document.querySelector("#investment").value);
+            var tbody = document.querySelector("#myresult")
+            tbody.innerHTML = "";
+            var times = Number(document.querySelector("#times").value);
+            var interest = 0;
+            var dayInterest = 0;
+            var returns = 0
+
+
+            if (investment == 0 || times == 0) {
+                alert("Filed can not be blank")
+                return false;
+            } else {
+                for (let i = 0; returns <= investment * times; i++) {
+                    dayInterest = (interest + investment) * 0.008;
+                    interest += (interest + investment) * 0.008;
+                    returns = interest + investment
+                    let date = new Date(document.getElementById('date').value);
+                    date.setDate(date.getDate() + i)
+
+                    if (isToday(date)) {
+
+                    }
+                    // console.log(newdate)
+                    tbody.innerHTML += (`<tr id="${(isToday(date)) ? "today" : "date"+i}">
+                        <td>${i + 1}</td>
+                        <td class="mydate ">${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}</td>
+                        <td>${Math.ceil(dayInterest)}</td>
+                        <td>${Math.ceil(interest)}</td>
+                        <td>${Math.ceil(returns)}</td>
+                    </tr>`)
+                    // console.log(`How Many days to took : ${i}`)
+                    // console.log(`My interest is :  ${interest}`);
+                    // console.log(`My Total Money is :  ${returns}`)
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>
