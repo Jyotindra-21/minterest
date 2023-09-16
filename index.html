@@ -89,8 +89,8 @@
                 return false;
             } else {
                 for (let i = 0; returns <= investment * times; i++) {
-                    dayInterest = (interest + investment) * 0.008;
-                    interest += (interest + investment) * 0.008;
+                    dayInterest = (interest + investment) * 0.0009;
+                    interest += (interest + investment) * 0.0009;
                     returns = interest + investment
                     let date = new Date(document.getElementById('date').value);
                     date.setDate(date.getDate() + i)
